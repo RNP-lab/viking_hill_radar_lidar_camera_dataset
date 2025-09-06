@@ -153,5 +153,9 @@ The camera stream in this dataset was anonymized using [EgoBlur](https://github.
 * Raina, N., Somasundaram, G., Zheng, K., Miglani, S., Saarinen, S., Meissner, J., Schwesinger, M., Pesqueira, L., Prasad, I., Miller, E., Gupta, P., Yan, M., Newcombe, R., Ren, C., & Parkhi, O. M. (2023). EgoBlur: Responsible Innovation in Aria. arXiv preprint [arXiv:2308.13093](https://arxiv.org/abs/2308.13093).
 * Optimization in Robotics and Biomechanics, Deface, (accessed 2025), GitHub repository, [https://github.com/ORB-HD/deface](https://github.com/ORB-HD/deface)
 
+The dataset was labeled using the online tools from [Segments.ai](https://segments.ai) who generously provided us a free academic license.
+* Segments.ai (2023). Segments.ai data labeling platform, [https://segments.ai](https://segments.ai).
+  
+
 
 
