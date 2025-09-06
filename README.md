@@ -10,8 +10,12 @@
 # The Radar Forest Dataset [working title]
 
 ## Dataset description
-![TBD](media/husky_deep_grass_sm.jpg)
-*The recorded dataset captures ...*
+![Husky robot during the experiment](media/husky_deep_grass_sm.jpg)
+*The recorded dataset captures a forested area that contains fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.*
+
+![3D cuboids labeling tree canopies, tree trunks, small trees, and several other categories](media/labels_sm.jpg)
+
+*Using the [Segments.ai](https://segments.ai) online 3D labeling solution, the reference point cloud maps from two recording runs were manually labeled, allowing lidar, radar and potentially also camera online labeling when re-playing the data in ROS.*
 
 TODO:
 The dataset includes LiDAR, 4D Radar, GNSS, RGB camera and IMU.
@@ -145,10 +149,9 @@ Removed for double-blind review
 
 ## Acknowledgement
 
-The camera stream in this dataset was anonymized using [EgoBlur](https://github.com/facebookresearch/EgoBlur) 
+The camera stream in this dataset was anonymized using [EgoBlur](https://github.com/facebookresearch/EgoBlur), and [deface](https://github.com/ORB-HD/deface) automated tools.
 * Raina, N., Somasundaram, G., Zheng, K., Miglani, S., Saarinen, S., Meissner, J., Schwesinger, M., Pesqueira, L., Prasad, I., Miller, E., Gupta, P., Yan, M., Newcombe, R., Ren, C., & Parkhi, O. M. (2023). EgoBlur: Responsible Innovation in Aria. arXiv preprint [arXiv:2308.13093](https://arxiv.org/abs/2308.13093).
-
-
+* Optimization in Robotics and Biomechanics, Deface, (accessed 2025), GitHub repository, [https://github.com/charlespwd/project-title](https://github.com/ORB-HD/deface)
 
 
 
