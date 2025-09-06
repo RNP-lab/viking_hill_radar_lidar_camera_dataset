@@ -10,8 +10,12 @@
 # The Radar Forest Dataset [working title]
 
 ## Dataset description
-![TBD](media/husky_deep_grass_sm.jpg)
-*The recorded dataset captures ...*
+![Husky robot during the experiment](media/husky_deep_grass_sm.jpg)
+*The recorded dataset captures a forested area that contains fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.*
+
+![3D cuboids labeling tree canopies, tree trunks, small trees, and several other categories](media/labels_sm.jpg)
+
+*Using the [Segments.ai](https://segments.ai) online 3D labeling solution, the reference point cloud maps from two recording runs were manually labeled, allowing lidar, radar and potentially also camera online labeling when re-playing the data in ROS.*
 
 TODO:
 The dataset includes LiDAR, 4D Radar, GNSS, RGB camera and IMU.
