@@ -29,7 +29,69 @@ The dataset includes LiDAR, 4D Radar, GNSS, RGB camera and IMU.
 ## Data Structure and File Organization
 
 ```
-TODO
+├── ros1_noetic
+│   ├── calibration
+│   │   ├── extrinsics
+│   │   │   ├── extrinsics.txt
+│   │   │   └── frames.pdf
+│   │   └── intrinsics
+│   │       ├── camera_calibration.txt
+│   │       └── hugin_radar_startup_params.txt
+│   └── data
+│       ├── 2024_05_short_grass_run
+│       │   ├── bags
+│       │   │   ├── short_grass__ros1__00.bag
+│       │   │   ├── ...
+│       │   │   └── short_grass__ros1__45.bag
+│       │   ├── gps
+│       │   │   ├── filtered_RTK_solution.pos
+│       │   │   ├── full_RTK_solution.pos
+│       │   │   ├── ReachBaseSt_20240501125754
+│       │   │   ├── ReachRoverO_20240501133817
+│       │   │   └── readme.txt
+│       │   └── reference_point_cloud_map
+│       │       ├── short_grass_map.pcd
+│       │       ├── short_grass_map_subsampled.pcd
+│       │       └── short_grass_map_with_normals.vtk
+│       └── 2024_06_tall_grass_run
+│           ├── bags
+│           │   ├── tall_grass__ros1__00.bag
+│           │   ├── ...
+│           │   └── tall_grass__ros1__44.bag
+│           ├── gps
+│           │   ├── filered_RTK_solution.pos
+│           │   ├── full_RTK_solution.pos
+│           │   ├── ReachBaseSt_20240612080138
+│           │   ├── ReachRoverO_20240612080516
+│           │   └── readme.txt
+│           └── reference_point_cloud_map
+│               ├── readme.txt
+│               ├── tall_grass_map.pcd
+│               ├── tall_grass_map_subsampled.pcd
+│               └── tall_grass_map_with_normals.vtk
+└── ros2_jazzy
+    ├── calibration                                                # Same contents as in ROS1
+    ├── cuboid_labels
+    │   └── short_and_tall_grass_labels.json
+    └── data
+        ├── 2024_05_short_grass_run
+        │   ├── bag
+        │   │   └── short_grass__ros2
+        │   │       ├── metadata.yaml
+        │   │       ├── short_grass__ros2_0.mcap
+        │   │       ├── ...
+        │   │       └── short_grass__ros2_48.mcap
+        │   ├── gps                                                # Same contents as in ROS1
+        │   └── reference_point_cloud_map                          # Same contents as in ROS1
+        └── 2024_06_tall_grass_run
+            ├── bag
+            │   └── tall_grass__ros2
+            │       ├── metadata.yaml
+            │       ├── tall_grass__ros2_0.mcap
+            │       ├── ...
+            │       └── tall_grass__ros2_49.mcap
+            ├── gps                                                # Same contents as in ROS1
+            └── reference_point_cloud_map                          # Same contents as in ROS1
 ```
 
 * `xxx` → Raw sensory data and static transforms.
