@@ -13,12 +13,19 @@
 ![Husky robot during the experiment](media/husky_deep_grass_sm.jpg)
 *The recorded dataset captures a forested area that contains fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.*
 
-TODO:
-The dataset includes LiDAR, 4D Radar, GNSS, RGB camera and IMU.
+The dataset captures a forested area that contains both fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.
+Clearpath Husky robot was teleoperated through the area in May and June 2024, each time driving roughly one hour while recording its onboard sensors: LiDAR, 4D Radar, GNSS, RGB camera, IMU and internal odometry.
+Thanks to the GNSS receiver and lidar data, reference lidar point cloud map and thus absolute positioning of the robot during the experiment are available.
+Moreover, to support 4D radar research in detetection and classification of obstacles in similar environments, the dataset provides labels (3D cuboids) for several classes (e.g., tree trunk, tree canopy, bush, ...) and
+ROS2 tools that use these cuboids to label arbitrary point clouds in the dataset (lidar, radar, accumulated versions of those, or sub-maps).
 
 
 ![3D cuboids labeling tree canopies, tree trunks, small trees, and several other categories](media/labels_sm.jpg)
 *Using the [Segments.ai](https://segments.ai) online 3D labeling solution, the reference point cloud maps from two recording runs were manually labeled, allowing lidar, radar and potentially also camera online labeling when re-playing the data in ROS.*
+
+
+The data are provided as ROS bag files, both for ROS1 and ROS2, and the cuboid-labeling tools are available for ROS2. Since the labeled point clouds are published as standard PointCloud2 messages, it is possible to c
+
 
 ![Vive data in Rviz](media/rviz_live_sm.jpg)
 *Provided ROS tools annotate radar or lidar pointclouds, display used cuboids and allow accumulating points and exporting as .pcd files.*
