@@ -155,10 +155,12 @@ The dataset sensor measurements from these sensors:
 * Xsens MTi-30 (IMU)
   * Topics: `/imu/data`, `/imu/mag`, `/imu/time_ref` 
 * Emlid Reach RS2+ (RTK-GNSS receiver pair)
-  * Topics from the receiver (single receiver mode): `/emlid_gnss/fix`  `/emlid_gnss/nmea_sentence`  `/emlid_gnss/time_reference`  `/emlid_gnss/vel`
+  * Topics from the receiver (single receiver mode): `/emlid_gnss/fix`, `/emlid_gnss/nmea_sentence`, `/emlid_gnss/time_reference`, `/emlid_gnss/vel`
   * Topics with post-processed RTK solution: `/rtklib/post_fix` (complete solution, various quality - SINGLE, FLOAT, FIXED), `/rtklib/post_fix_q1` (only the best quality, FIXED)
 * Husky odometry fused with the Xsens MTi-30 IMU
-  * Topic: `/imu_odom `
+  * Topic: `/husky_udp_bridge/cmd_vel` (teleoperation commands), `/husky_udp_bridge/odom` (pure odom), `/imu_odom` (fused imu-odometry)
+* Reference localization w.r.t. the provided reference point cloud maps
+  * Topic: `/icp_odom` (expresses the pose of the /base_link in /map)
 
 ### Reference Contents
 
