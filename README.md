@@ -14,7 +14,7 @@
 *The recorded dataset captures a forested area that contains fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.*
 
 The dataset captures a forested area that contains both fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.
-Clearpath Husky robot was teleoperated through the area in May and June 2024, each time driving roughly one hour while recording its onboard sensors: LiDAR, 4D Radar, GNSS, RGB camera, IMU and internal odometry.
+Clearpath Husky robot was teleoperated through the area in May and June 2024, each time driving roughly one hour while recording its onboard sensors: LiDAR, high-resolution 4D radar, GNSS, RGB camera, IMU and internal odometry.
 Thanks to the GNSS receiver and lidar data, reference lidar point cloud map and thus absolute positioning of the robot during the experiment are available.
 Moreover, to support 4D radar research in detetection and classification of obstacles in similar environments, the dataset provides labels (3D cuboids) for several classes (e.g., tree trunk, tree canopy, bush, ...) and
 ROS2 tools that use these cuboids to label arbitrary point clouds in the dataset (lidar, radar, accumulated versions of those, or sub-maps).
@@ -34,10 +34,18 @@ A tool for point cloud accumulation is also provided. Based on the message count
 ---
 
 ## Dataset Components
-### TODO
 
-* **TODO** (XXs)
- xx
+### Data from the recording sesstions
+
+* **Short grass: May 2024** (4068s)
+Area of approx. 200x200m was captured by the Husky mobile robot in a "search pattern" fashion, resulting in dense coverage by all the onboard sensors.
+In the beginning of summer, the undergrowth is not yet fully developed, therefore the visibility conditions for the camera and lidar are good.
+
+
+
+
+* **Tall grass: June 2024** (XXXs)
+
 
 ---
 
