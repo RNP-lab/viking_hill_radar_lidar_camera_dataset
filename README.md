@@ -139,16 +139,26 @@ The tools are available in a separate repository: **TODO**
 * `calibration/extrinsics/` → Transformations between sensor frames.
 * `calibration/instrinsics/` → Intrinsic parameters for the camera and radar settings.
 
-### Sensors
-The dataset provides sensor measurements from these sensors:
+### Sensors and topics
+The dataset sensor measurements from these sensors:
 
 * Sensrad Hugin A3-Sample (solid-state 4D radar)
   * Please note that the Hugin A3-Sample radar used in our dataset is an early demo model not with the same performance as the forthcoming production-ready model.
+  * Topic: `/hugin_raf_1/radar_data`
 * Ouster OS0-32 (3D lidar)
-  * This sensor is available for tuning and verification of your SLAM solution, but not available in the competition runs (i.e., the topic with point clouds will not be published in the Docker environment).  
+  * This sensor is available for tuning and verification of your SLAM solution, but not available in the competition runs (i.e., the topic with point clouds will not be published in the Docker environment).
+  * Topics in ROS1: `/ouster/lidar_packets`, `/ouster/imu_packets`, `/point_cloud_deskewed` - for convenience, already motion-corrected point cloud
+  * Topics in ROS2: `/ouster/imu`, `/ouster/points`, `/ouster/range_image`, `/point_cloud_deskewed`
 * IDS Imaging uEye camera (2056x1542px)
+  * Calibrated with checkerboard OpenCV camera calibration
+  * Topics: `/ids_camera/image_raw/camera_info`, `/ids_camera/image_raw/compressed`
 * Xsens MTi-30 (IMU)
+  * Topics: `/imu/data`, `/imu/mag`, `/imu/time_ref` 
 * Emlid Reach RS2+ (RTK-GNSS receiver pair)
+  * Topics from the receiver (single receiver mode): `/emlid_gnss/fix`  `/emlid_gnss/nmea_sentence`  `/emlid_gnss/time_reference`  `/emlid_gnss/vel`
+  * Topics with post-processed RTK solution: `/rtklib/post_fix` (complete solution, various quality - SINGLE, FLOAT, FIXED), `/rtklib/post_fix_q1` (only the best quality, FIXED)
+* Husky odometry fused with the Xsens MTi-30 IMU
+  * Topic: `/imu_odom `
 
 ### Reference Contents
 
