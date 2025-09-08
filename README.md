@@ -43,18 +43,16 @@ In the beginning of summer, the undergrowth is not yet fully developed, therefor
 Besides the raw data from the robot, a reference map is provided as well as raw GNSS data from a static and mobile receiver.
 
 ![Husky in the short grass session](media/short_grass_husky.jpg)
-![The point cloud map of the captured area](media/short_grass_map.jpg)
 ![The robot trajectory - the "search pattern"](media/short_grass_traj.jpg)
-
+![The point cloud map of the captured area](media/short_grass_map.jpg)
 
 * **Tall grass: June 2024** (3811s)
 The same area was visited again one month later in June, when the undergrowth became in some sections even higher than the robot itself.
 In these conditions, the comparison between camera, lidar and radar becomes interesting for the field robotics applications.
 
 ![Husky in the tall grass session](media/tall_grass_husky.jpg)
-![The point cloud map of the captured area](media/tall_grass_map.jpg)
 ![The robot trajectory - the tall grass session](media/tall_grass_traj.jpg)
-
+![The point cloud map of the captured area](media/tall_grass_map.jpg)
 
 
 ---
