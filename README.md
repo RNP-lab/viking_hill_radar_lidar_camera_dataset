@@ -10,7 +10,7 @@
 # The Radar Forest Dataset [working title]
 
 ## Dataset description
-![Husky robot during the experiment](media/husky_deep_grass_sm.jpg)
+![Husky robot during the experiment](media/husky_title_sm.jpg)
 *The recorded dataset captures a forested area that contains fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.*
 
 The dataset captures a forested area that contains both fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.
