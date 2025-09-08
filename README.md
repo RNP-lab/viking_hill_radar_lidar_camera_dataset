@@ -204,6 +204,12 @@ The camera stream in this dataset was anonymized using [EgoBlur](https://github.
 
 The dataset was labelled using the online tools from [Segments.ai](https://segments.ai) who generously provided us a free academic license.
 * Segments.ai (2023). Segments.ai data labeling platform, [https://segments.ai](https://segments.ai).
+
+The reference map and localization was constructed using Norlab's [ICP Mapper](https://github.com/norlab-ulaval/norlab_icp_mapper_ros) serving as a lidar odometry frontend for the [HDL Graph Slam](https://github.com/koide3/hdl_graph_slam)
+* Pomerleau, F., Colas, F., Siegwart, R., & Magnenat, S. (2013). Comparing ICP Variants on Real-World Data Sets. Autonomous Robots, 34(3), 133–148. 
+* Kenji Koide, Jun Miura, and Emanuele Menegatti, (2019). A Portable 3D LIDAR-based System for Long-term and Wide-area People Behavior Measurement, Advanced Robotic Systems, [link](https://www.researchgate.net/publication/331283709_A_Portable_3D_LIDAR-based_System_for_Long-term_and_Wide-area_People_Behavior_Measurement)
+
+
   
 
 
