@@ -40,16 +40,31 @@ A tool for point cloud accumulation is also provided. Based on the message count
 * **Short grass: May 2024** (4068s)
 Area of approx. 200x200m was captured by the Husky mobile robot in a "search pattern" fashion, resulting in dense coverage by all the onboard sensors.
 In the beginning of summer, the undergrowth is not yet fully developed, therefore the visibility conditions for the camera and lidar are good.
+Besides the raw data from the robot, a reference map is provided as well as raw GNSS data from a static and mobile receiver.
 
 ![Husky in the short grass session](media/short_grass_husky.jpg)
-![The point cloud map of the captured area](media/short_grass_map.jpg)
 ![The robot trajectory - the "search pattern"](media/short_grass_traj.jpg)
+![The point cloud map of the captured area](media/short_grass_map.jpg)
 
+* **Tall grass: June 2024** (3811s)
+The same area was visited again one month later in June, when the undergrowth became in some sections even higher than the robot itself.
+In these conditions, the comparison between camera, lidar and radar becomes interesting for the field robotics applications.
 
+![Husky in the tall grass session](media/tall_grass_husky.jpg)
+![The robot trajectory - the tall grass session](media/tall_grass_traj.jpg)
+![The point cloud map of the captured area](media/tall_grass_map.jpg)
 
-* **Tall grass: June 2024** (XXXs)
+### ROS1 and ROS2 tools
 
+* **ROS1 tools - helper launch files**
+The ROS1 variant of the bag files is accompanied by a set of launch files allowing reprocessing of the Ouster lidar raw packets, adding additional TFs, and publishing the reference point cloud map for Rviz visualisation.
+The tools are available in a separate repository: **TODO** 
 
+* **ROS2 tools - point cloud labelling tools**
+The provided ROS2 tools allow online labeling of point clouds, either lidar or radar, based on the provided set of cuboids stored in a yaml file (included).
+For convenience, a tool for accumulating a series of pointclouds, republishing them and also saving as `.pcd` files is also provided.
+Similarly to ROS1, a launch file for publishing a reference point cloud map and Rviz config file are also available.
+The tools are available in a separate repository: **TODO** 
 ---
 
 ## Data Structure and File Organization
@@ -124,16 +139,28 @@ In the beginning of summer, the undergrowth is not yet fully developed, therefor
 * `calibration/extrinsics/` → Transformations between sensor frames.
 * `calibration/instrinsics/` → Intrinsic parameters for the camera and radar settings.
 
-### Sensors
-The dataset provides sensor measurements from these sensors:
+### Sensors and topics
+The dataset sensor measurements from these sensors:
 
 * Sensrad Hugin A3-Sample (solid-state 4D radar)
   * Please note that the Hugin A3-Sample radar used in our dataset is an early demo model not with the same performance as the forthcoming production-ready model.
+  * Topic: `/hugin_raf_1/radar_data`
 * Ouster OS0-32 (3D lidar)
-  * This sensor is available for tuning and verification of your SLAM solution, but not available in the competition runs (i.e., the topic with point clouds will not be published in the Docker environment).  
+  * This sensor is available for tuning and verification of your SLAM solution, but not available in the competition runs (i.e., the topic with point clouds will not be published in the Docker environment).
+  * Topics in ROS1: `/ouster/lidar_packets`, `/ouster/imu_packets`, `/point_cloud_deskewed` - for convenience, already motion-corrected point cloud
+  * Topics in ROS2: `/ouster/imu`, `/ouster/points`, `/ouster/range_image`, `/point_cloud_deskewed`
 * IDS Imaging uEye camera (2056x1542px)
+  * Calibrated with checkerboard OpenCV camera calibration
+  * Topics: `/ids_camera/image_raw/camera_info`, `/ids_camera/image_raw/compressed`
 * Xsens MTi-30 (IMU)
+  * Topics: `/imu/data`, `/imu/mag`, `/imu/time_ref` 
 * Emlid Reach RS2+ (RTK-GNSS receiver pair)
+  * Topics from the receiver (single receiver mode): `/emlid_gnss/fix`, `/emlid_gnss/nmea_sentence`, `/emlid_gnss/time_reference`, `/emlid_gnss/vel`
+  * Topics with post-processed RTK solution: `/rtklib/post_fix` (complete solution, various quality - SINGLE, FLOAT, FIXED), `/rtklib/post_fix_q1` (only the best quality, FIXED)
+* Husky odometry fused with the Xsens MTi-30 IMU
+  * Topic: `/husky_udp_bridge/cmd_vel` (teleoperation commands), `/husky_udp_bridge/odom` (pure odom), `/imu_odom` (fused imu-odometry)
+* Reference localization w.r.t. the provided reference point cloud maps
+  * Topic: `/icp_odom` (expresses the pose of the /base_link in /map)
 
 ### Reference Contents
 
@@ -177,6 +204,12 @@ The camera stream in this dataset was anonymized using [EgoBlur](https://github.
 
 The dataset was labelled using the online tools from [Segments.ai](https://segments.ai) who generously provided us a free academic license.
 * Segments.ai (2023). Segments.ai data labeling platform, [https://segments.ai](https://segments.ai).
+
+The reference map and localization was constructed using Norlab's [ICP Mapper](https://github.com/norlab-ulaval/norlab_icp_mapper_ros) serving as a lidar odometry frontend for the [HDL Graph Slam](https://github.com/koide3/hdl_graph_slam)
+* Pomerleau, F., Colas, F., Siegwart, R., & Magnenat, S. (2013). Comparing ICP Variants on Real-World Data Sets. Autonomous Robots, 34(3), 133–148. 
+* Kenji Koide, Jun Miura, and Emanuele Menegatti, (2019). A Portable 3D LIDAR-based System for Long-term and Wide-area People Behavior Measurement, Advanced Robotic Systems, [link](https://www.researchgate.net/publication/331283709_A_Portable_3D_LIDAR-based_System_for_Long-term_and_Wide-area_People_Behavior_Measurement)
+
+
   
 
 
