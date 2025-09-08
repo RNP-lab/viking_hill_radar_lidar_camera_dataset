@@ -54,7 +54,17 @@ In these conditions, the comparison between camera, lidar and radar becomes inte
 ![The robot trajectory - the tall grass session](media/tall_grass_traj.jpg)
 ![The point cloud map of the captured area](media/tall_grass_map.jpg)
 
+### ROS1 and ROS2 tools
 
+* **ROS1 tools - helper launch files**
+The ROS1 variant of the bag files is accompanied by a set of launch files allowing reprocessing of the Ouster lidar raw packets, adding additional TFs, and publishing the reference point cloud map for Rviz visualisation.
+The tools are available in a separate repository: **TODO** 
+
+* **ROS2 tools - point cloud labelling tools**
+The provided ROS2 tools allow online labeling of point clouds, either lidar or radar, based on the provided set of cuboids stored in a yaml file (included).
+For convenience, a tool for accumulating a series of pointclouds, republishing them and also saving as `.pcd` files is also provided.
+Similarly to ROS1, a launch file for publishing a reference point cloud map and Rviz config file are also available.
+The tools are available in a separate repository: **TODO** 
 ---
 
 ## Data Structure and File Organization
