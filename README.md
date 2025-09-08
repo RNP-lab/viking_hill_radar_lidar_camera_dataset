@@ -13,12 +13,23 @@
 ![Husky robot during the experiment](media/husky_deep_grass_sm.jpg)
 *The recorded dataset captures a forested area that contains fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.*
 
+The dataset captures a forested area that contains both fully grown and young trees, dense undergrowth, bumpy terrain and occasional rocks.
+Clearpath Husky robot was teleoperated through the area in May and June 2024, each time driving roughly one hour while recording its onboard sensors: LiDAR, 4D Radar, GNSS, RGB camera, IMU and internal odometry.
+Thanks to the GNSS receiver and lidar data, reference lidar point cloud map and thus absolute positioning of the robot during the experiment are available.
+Moreover, to support 4D radar research in detetection and classification of obstacles in similar environments, the dataset provides labels (3D cuboids) for several classes (e.g., tree trunk, tree canopy, bush, ...) and
+ROS2 tools that use these cuboids to label arbitrary point clouds in the dataset (lidar, radar, accumulated versions of those, or sub-maps).
+
+
 ![3D cuboids labeling tree canopies, tree trunks, small trees, and several other categories](media/labels_sm.jpg)
+*Using the [Segments.ai](https://segments.ai) online 3D labeling solution, the reference point cloud maps from two recording runs were manually labelled.*
 
-*Using the [Segments.ai](https://segments.ai) online 3D labeling solution, the reference point cloud maps from two recording runs were manually labeled, allowing lidar, radar and potentially also camera online labeling when re-playing the data in ROS.*
 
-TODO:
-The dataset includes LiDAR, 4D Radar, GNSS, RGB camera and IMU.
+The data are provided as ROS bag files, both for ROS1 and ROS2, and the point-cloud-labeling tools are available for ROS2. 
+Since the labelled point clouds are published as standard `PointCloud2` messages, it is possible to convert the labelled clouds back to ROS1 either by ROS bridge, or by converting bag files (e.g., by [Rosbags](https://pypi.org/project/rosbags/) library.)
+A tool for point cloud accumulation is also provided. Based on the message count or distance travelled, denser point clouds are produced and optionally saved in `.pcd` format, allowing easy post-processing.
+
+![Vive data in Rviz](media/rviz_live_sm.jpg)
+*Provided ROS tools annotate the radar or lidar pointclouds, display used cuboids in Rviz.*
 
 ---
 
@@ -153,7 +164,7 @@ The camera stream in this dataset was anonymized using [EgoBlur](https://github.
 * Raina, N., Somasundaram, G., Zheng, K., Miglani, S., Saarinen, S., Meissner, J., Schwesinger, M., Pesqueira, L., Prasad, I., Miller, E., Gupta, P., Yan, M., Newcombe, R., Ren, C., & Parkhi, O. M. (2023). EgoBlur: Responsible Innovation in Aria. arXiv preprint [arXiv:2308.13093](https://arxiv.org/abs/2308.13093).
 * Optimization in Robotics and Biomechanics, Deface, (accessed 2025), GitHub repository, [https://github.com/ORB-HD/deface](https://github.com/ORB-HD/deface)
 
-The dataset was labeled using the online tools from [Segments.ai](https://segments.ai) who generously provided us a free academic license.
+The dataset was labelled using the online tools from [Segments.ai](https://segments.ai) who generously provided us a free academic license.
 * Segments.ai (2023). Segments.ai data labeling platform, [https://segments.ai](https://segments.ai).
   
 
