@@ -188,6 +188,14 @@ To use different reference, the bag files need to be filtered, removing the `/ic
 
 ## Downloads
 
+**Note to reviewers: This location is temporary for maintaing anonymity. It was kindly provided by fellow researchers from field robotics.**
+
+The dataset can be downloaded from this [repository](http://subtdata.felk.cvut.cz/tmp_radar_forest_dataset_release/)
+Depending on your preferred ROS version, download only the ROS1 or ROS2 archive.
+
+The dataset was compressed using **7z** tool. For convenience, consider using provided ROS1 and ROS2 bash scripts, that download and decompress the archive at the location of running them.
+[ROS1 download script](
+
 * [TODO](https://www.todo.com) (XX GB in total)
 
 ---
