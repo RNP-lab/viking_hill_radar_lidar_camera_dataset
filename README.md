@@ -193,10 +193,10 @@ To use different reference, the bag files need to be filtered, removing the `/ic
 The dataset can be downloaded from this [repository](http://subtdata.felk.cvut.cz/tmp_radar_forest_dataset_release/)
 Depending on your preferred ROS version, download only the ROS1 or ROS2 archive.
 
-The dataset was compressed using **7z** tool. For convenience, consider using provided ROS1 and ROS2 bash scripts, that download and decompress the archive at the location of running them.
-[ROS1 download script](
+The dataset was compressed using **7z** tool. For convenience, consider using provided ROS1 and ROS2 bash scripts, that download and decompress the archive at the location of running them. Each version of the dataset is approx. 200GB large, and for decompression, twice that space is required on your disk.
 
-* [TODO](https://www.todo.com) (XX GB in total)
+* [ROS1 download script](download_scripts/download_and_extract_ros1_radar_dataset.bash)
+* [ROS2 download script](download_scripts/download_and_extract_ros2_radar_dataset.bash)
 
 ---
 
