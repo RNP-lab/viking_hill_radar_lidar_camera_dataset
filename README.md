@@ -69,32 +69,40 @@ The tools are available in a separate repository: **TODO**
 
 ## Data Structure and File Organization
 
+The dataset is split into two parts, ROS1 and ROS2, both of them containing basically the same data.
+The main difference is that ROS1 contains raw packets of the Ouster lidar, and the user is expected to run provided launch file to 
+reconstruct all the topics the sensor provides. This saves space and speeds up the dataset download.
+Since it has shown to be problematic to run ROS2 Ouster driver with packets recorded in ROS1, the topics deemed most useful has been saved in the ROS2 bag files, instead of the raw packets.
+For convenience, de-skewed lidar point cloud has been saved in both versions.
+
+Regarding the file organization, see the tree below:
+
 ```
 ├── ros1_noetic
-│   ├── calibration
+│   ├── calibration                                   
 │   │   ├── extrinsics
-│   │   │   ├── extrinsics.txt
-│   │   │   └── frames.pdf
+│   │   │   ├── extrinsics.txt                        # Transforms between sensor frames, also available in /tf
+│   │   │   └── frames.pdf                            # Output of rqt TF visualization
 │   │   └── intrinsics
-│   │       ├── camera_calibration.txt
-│   │       └── hugin_radar_startup_params.txt
+│   │       ├── camera_calibration.txt                # Output of the OpenCV camera calibration
+│   │       └── hugin_radar_startup_params.txt        # The Hugin radar startup sequence, affects sensitivity and amount of points
 │   └── data
-│       ├── 2024_05_short_grass_run
-│       │   ├── bags
-│       │   │   ├── short_grass__ros1__00.bag
+│       ├── 2024_05_short_grass_run                   # The short grass run 
+│       │   ├── bags                                  # ROS1 bag files, play with "rosbag play --clock short_grass__ros1__*"
+│       │   │   ├── short_grass__ros1__00.bag        
 │       │   │   ├── ...
 │       │   │   └── short_grass__ros1__45.bag
-│       │   ├── gps
-│       │   │   ├── filtered_RTK_solution.pos
-│       │   │   ├── full_RTK_solution.pos
+│       │   ├── gps                                   # Post-processed RTK solution and raw data. See Emlid documentation to recompute yourself
+│       │   │   ├── filtered_RTK_solution.pos         # Filtered == Only sections with approx >15 sattelites kept
+│       │   │   ├── full_RTK_solution.pos             # Original RTK solution, but in a forest, so sometimes quite bad
 │       │   │   ├── ReachBaseSt_20240501125754
 │       │   │   ├── ReachRoverO_20240501133817
 │       │   │   └── readme.txt
-│       │   └── reference_point_cloud_map
+│       │   └── reference_point_cloud_map             # Reference point cloud map, created by using Norlab ICP mapper and HDL graph slam
 │       │       ├── short_grass_map.pcd
 │       │       ├── short_grass_map_subsampled.pcd
 │       │       └── short_grass_map_with_normals.vtk
-│       └── 2024_06_tall_grass_run
+│       └── 2024_06_tall_grass_run                    # Tall grass run, same structure as in Short grass 
 │           ├── bags
 │           │   ├── tall_grass__ros1__00.bag
 │           │   ├── ...
@@ -112,11 +120,11 @@ The tools are available in a separate repository: **TODO**
 │               └── tall_grass_map_with_normals.vtk
 └── ros2_jazzy
     ├── calibration                                                # Same contents as in ROS1
-    ├── cuboid_labels
+    ├── cuboid_labels                                              # Cuboid labels from Segments.ai labelling service.
     │   └── short_and_tall_grass_labels.json
-    └── data
+    └── data                                                       
         ├── 2024_05_short_grass_run
-        │   ├── bag
+        │   ├── bag                                                # ROS2 bagfiles
         │   │   └── short_grass__ros2
         │   │       ├── metadata.yaml
         │   │       ├── short_grass__ros2_0.mcap
