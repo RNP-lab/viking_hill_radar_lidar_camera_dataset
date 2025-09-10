@@ -69,32 +69,40 @@ The tools are available in a separate repository: **TODO**
 
 ## Data Structure and File Organization
 
+The dataset is split into two parts, ROS1 and ROS2, both of them containing basically the same data.
+The main difference is that ROS1 contains raw packets of the Ouster lidar, and the user is expected to run provided launch file to 
+reconstruct all the topics the sensor provides. This saves space and speeds up the dataset download.
+Since it has shown to be problematic to run ROS2 Ouster driver with packets recorded in ROS1, the topics deemed most useful has been saved in the ROS2 bag files, instead of the raw packets.
+For convenience, de-skewed lidar point cloud has been saved in both versions.
+
+Regarding the file organization, see the tree below:
+
 ```
 ├── ros1_noetic
-│   ├── calibration
+│   ├── calibration                                   
 │   │   ├── extrinsics
-│   │   │   ├── extrinsics.txt
-│   │   │   └── frames.pdf
+│   │   │   ├── extrinsics.txt                        # Transforms between sensor frames, also available in /tf
+│   │   │   └── frames.pdf                            # Output of rqt TF visualization
 │   │   └── intrinsics
-│   │       ├── camera_calibration.txt
-│   │       └── hugin_radar_startup_params.txt
+│   │       ├── camera_calibration.txt                # Output of the OpenCV camera calibration
+│   │       └── hugin_radar_startup_params.txt        # The Hugin radar startup sequence, affects sensitivity and amount of points
 │   └── data
-│       ├── 2024_05_short_grass_run
-│       │   ├── bags
-│       │   │   ├── short_grass__ros1__00.bag
+│       ├── 2024_05_short_grass_run                   # The short grass run 
+│       │   ├── bags                                  # ROS1 bag files, play with "rosbag play --clock short_grass__ros1__*"
+│       │   │   ├── short_grass__ros1__00.bag        
 │       │   │   ├── ...
 │       │   │   └── short_grass__ros1__45.bag
-│       │   ├── gps
-│       │   │   ├── filtered_RTK_solution.pos
-│       │   │   ├── full_RTK_solution.pos
+│       │   ├── gps                                   # Post-processed RTK solution and raw data. See Emlid documentation to recompute yourself
+│       │   │   ├── filtered_RTK_solution.pos         # Filtered == Only sections with approx >15 sattelites kept
+│       │   │   ├── full_RTK_solution.pos             # Original RTK solution, but in a forest, so sometimes quite bad
 │       │   │   ├── ReachBaseSt_20240501125754
 │       │   │   ├── ReachRoverO_20240501133817
 │       │   │   └── readme.txt
-│       │   └── reference_point_cloud_map
+│       │   └── reference_point_cloud_map             # Reference point cloud map, created by using Norlab ICP mapper and HDL graph slam
 │       │       ├── short_grass_map.pcd
 │       │       ├── short_grass_map_subsampled.pcd
 │       │       └── short_grass_map_with_normals.vtk
-│       └── 2024_06_tall_grass_run
+│       └── 2024_06_tall_grass_run                    # Tall grass run, same structure as in Short grass 
 │           ├── bags
 │           │   ├── tall_grass__ros1__00.bag
 │           │   ├── ...
@@ -112,11 +120,11 @@ The tools are available in a separate repository: **TODO**
 │               └── tall_grass_map_with_normals.vtk
 └── ros2_jazzy
     ├── calibration                                                # Same contents as in ROS1
-    ├── cuboid_labels
+    ├── cuboid_labels                                              # Cuboid labels from Segments.ai labelling service.
     │   └── short_and_tall_grass_labels.json
-    └── data
+    └── data                                                       
         ├── 2024_05_short_grass_run
-        │   ├── bag
+        │   ├── bag                                                # ROS2 bagfiles
         │   │   └── short_grass__ros2
         │   │       ├── metadata.yaml
         │   │       ├── short_grass__ros2_0.mcap
@@ -135,15 +143,12 @@ The tools are available in a separate repository: **TODO**
             └── reference_point_cloud_map                          # Same contents as in ROS1
 ```
 
-* `xxx` → Raw sensory data and static transforms.
-* `calibration/extrinsics/` → Transformations between sensor frames.
-* `calibration/instrinsics/` → Intrinsic parameters for the camera and radar settings.
 
 ### Sensors and topics
 The dataset sensor measurements from these sensors:
 
 * Sensrad Hugin A3-Sample (solid-state 4D radar)
-  * Please note that the Hugin A3-Sample radar used in our dataset is an early demo model not with the same performance as the forthcoming production-ready model.
+  * **Please note** that the Hugin A3-Sample radar used in our dataset is an early demo model not with the same performance as the forthcoming production-ready model.
   * Topic: `/hugin_raf_1/radar_data`
 * Ouster OS0-32 (3D lidar)
   * This sensor is available for tuning and verification of your SLAM solution, but not available in the competition runs (i.e., the topic with point clouds will not be published in the Docker environment).
@@ -164,21 +169,34 @@ The dataset sensor measurements from these sensors:
 
 ### Reference Contents
 
-TODO:
-The dataset contains a `reference/` subdirectory with:
+**GNSS**
 
-* `reference_train_bagfile.bag`: Reference GNSS RTK localization synchrized with the robot time, saved as a bag file.
-* `reference.txt`: The GNSS RTK expressed in the UTM coordinates, with time stamps from the robot. Format: **timestamp[s], northing[m], easting[m], elevation, qx, qy, qz, qw**. Note that the quarternion is always identity.
-* `reference_train_gps_rtk_in_robot_time.csv`: Contains the same information as `reference.txt`, but expressed in latitude and longitude. Format: **secs, nsecs, latitude, longitude, elevation**.
-* `gps_filtered_high_accuracy.pos`: RTK solution used to generate the reference samples for the files above. It does not contain sections with too few sattelites. Note that the displayed time is the GPS time (no time zone, no step seconds).
-* `gsp_original_post_fix_including_bad_sections.pos`: Complete RTK solution, wih all samples including the noisy ones.
-* `train_robot_time_to_gps_time.csv`: Conversion from the robot time to the time indicated by the GNSS. The robot was no exactly synchronized with the GNSS, there is approx. 0.6s offset. This file can be used to match those times. Format: **robot secs, robot nsecs, gnss secs, gnss nsecs** 
+The GNSS reference was recorded with a pair of Emlid Reach RS2+ receivers, one serving as a mobile station attached to the robot, the second served as a reference static station.
+The RTK solution was obtained using RTKLIB, and the output was added back to the ROS bag files, synchronized with the saved NMEA messages (for each NMEA message carriying time and position, equivalent `/rtklib/post_fix` or `/rtklib/post_fix_q1` was added).
+Note that the system clock of the robot was not precisely synchronized with the GPS clock, therefore the ROS time stamps of the `/rtklib/post_fix` messages are to be considered w.r.t. to the rest of the recorder sensor messages.
+
+**Reference point cloud map**
+
+The pose of the robot saved in the ROS bag files is based on SLAM result of using Norlab's [ICP Mapper](https://github.com/norlab-ulaval/norlab_icp_mapper_ros) as a front-end for the [HDL Graph Slam](https://github.com/koide3/hdl_graph_slam) graph optimization.
+The high-quality `/rtklib/post_fix_q1` fix messages were used as constrains, and the whole map frame is aligned with the Universal Transverse Mercator (UTM) frame. Unfortunatelly, the GNSS coverage under tree canopy is a hard problem, therefore the number of 
+precise GNSS measurements is limited. Each run has it's own map, and when inspected the alignment after registration of these to maps to each other, we estimate the position uncertainty to +-30cm (large-scale deformations, locally consitent).
+This accuracy is adequate to the intended purpose of the dataset, which is point cloud segmentation training/testing.
+
+To use different reference, the bag files need to be filtered, removing the `/icp_odom` topic and the `/map->/odom` TF messages. Similarly, to test different odometry solutions, remove `/odom->/base_link` TF messages as well.
 
 ---
 
 ## Downloads
 
-* [TODO](https://www.todo.com) (XX GB in total)
+**Note to reviewers: This location is temporary for maintaing anonymity. It was kindly provided by fellow researchers from field robotics.**
+
+The dataset can be downloaded from this [repository](http://subtdata.felk.cvut.cz/tmp_radar_forest_dataset_release/)
+Depending on your preferred ROS version, download only the ROS1 or ROS2 archive.
+
+The dataset was compressed using **7z** tool. For convenience, consider using provided ROS1 and ROS2 bash scripts, that download and decompress the archive at the location of running them. Each version of the dataset is approx. 200GB large, and for decompression, twice that space is required on your disk.
+
+* [ROS1 download script](download_scripts/download_and_extract_ros1_radar_dataset.bash)
+* [ROS2 download script](download_scripts/download_and_extract_ros2_radar_dataset.bash)
 
 ---
 
