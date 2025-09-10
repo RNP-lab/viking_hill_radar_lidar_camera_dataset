@@ -38,7 +38,7 @@ A tool for point cloud accumulation is also provided. Based on the message count
 ### Data from the recording sessions
 
 * **Short grass: May 2024** (4068s)
-Area of approx. 200x200m was captured by the Husky mobile robot in a "search pattern" fashion, resulting in dense coverage by all the onboard sensors.
+Area of approx. 180x140m was captured by the Husky mobile robot in a "search pattern" fashion, resulting in dense coverage by all the onboard sensors.
 In the beginning of summer, the undergrowth is not yet fully developed, therefore the visibility conditions for the camera and lidar are good.
 Besides the raw data from the robot, a reference map is provided as well as raw GNSS data from a static and mobile receiver.
 
