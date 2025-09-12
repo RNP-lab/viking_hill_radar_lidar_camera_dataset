@@ -179,7 +179,7 @@ Note that the system clock of the robot was not precisely synchronized with the 
 
 The pose of the robot saved in the ROS bag files is based on SLAM result of using Norlab's [ICP Mapper](https://github.com/norlab-ulaval/norlab_icp_mapper_ros) as a front-end for the [HDL Graph Slam](https://github.com/koide3/hdl_graph_slam) graph optimization.
 The high-quality `/rtklib/post_fix_q1` fix messages were used as constrains, and the whole map frame is aligned with the Universal Transverse Mercator (UTM) frame. Unfortunatelly, the GNSS coverage under tree canopy is a hard problem, therefore the number of 
-precise GNSS measurements is limited. Each run has it's own map, and when inspected the alignment after registration of these to maps to each other, we estimate the position uncertainty to +-30cm (large-scale deformations, locally consitent).
+precise GNSS measurements is limited. Each run has its own map, and when inspected the alignment after registration of these to maps to each other, we estimate the position uncertainty to +-30cm (large-scale deformations, locally consitent).
 This accuracy is adequate to the intended purpose of the dataset, which is point cloud segmentation training/testing.
 
 To use different reference, the bag files need to be filtered, removing the `/icp_odom` topic and the `/map->/odom` TF messages. Similarly, to test different odometry solutions, remove `/odom->/base_link` TF messages as well.
