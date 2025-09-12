@@ -201,8 +201,11 @@ This file also contains definitions of the label classes:
 
 The cuboids were manually created based on the reference lidar maps, and as those maps do not perfectly align, the two sets of labels are adjusted for those differences.
 Moreover, the ROS2 point cloud labelling tool allows setting priority of the label classes, such that tree trunk has priority over tree canopy.
-In the current implementation, each point can belong to only one class, and this priprity system resolves situations where a point lies inside multiple cuboids. 
+In the current implementation, each point can belong to only one class, and this priority system resolves situations where one point lies inside multiple cuboids.
 
+Due to the lower spatial resolution of the 4D radar and the way it determines position of the reported targets, some valid radar points lay outside the cuboids drawn around the corresponding lidar-defined objects (e.g., tree trunks look thicker in the radar data than in the lidar data).
+The ROS2 labeling tool allows defining inflation of selected cuboid classes to compensate for this effect.
+Of course, it depends on the user's choice, how a radar point lying outside the sensed object, but clearly caused by that object, should be labeled.
 
 ---
 
