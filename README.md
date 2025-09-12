@@ -184,6 +184,26 @@ This accuracy is adequate to the intended purpose of the dataset, which is point
 
 To use different reference, the bag files need to be filtered, removing the `/icp_odom` topic and the `/map->/odom` TF messages. Similarly, to test different odometry solutions, remove `/odom->/base_link` TF messages as well.
 
+
+**3D cuboid labels**
+The 3D cuboid labes are stored in the `ros2_jazzy/cuboid_labels/short_and_tall_grass_labels.json` for both recording sessions. See the format documentation [here](https://docs.segments.ai/background/main-concepts).
+This file also contains definitions of the label classes:
+
+0. Ground (labelled implicitlty by the ROS2 tool, not present in the cuboid labels)
+1. Tree trunk
+2. Tree canopy
+3. Rock
+4. Bush or small tree
+5. Car
+6. Building or similar
+7. Lamp or sign
+8. Ignore
+
+The cuboids were manually created based on the reference lidar maps, and as those maps do not perfectly align, the two sets of labels are adjusted for those differences.
+Moreover, the ROS2 point cloud labelling tool allows setting priority of the label classes, such that tree trunk has priority over tree canopy.
+In the current implementation, each point can belong to only one class, and this priprity system resolves situations where a point lies inside multiple cuboids. 
+
+
 ---
 
 ## Downloads
