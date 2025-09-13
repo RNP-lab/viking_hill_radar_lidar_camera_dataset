@@ -192,7 +192,7 @@ To use different reference, the bag files need to be filtered, removing the `/ic
 The 3D cuboid labes are stored in the `ros2_jazzy/cuboid_labels/short_and_tall_grass_labels.json` for both recording sessions. See the format documentation [here](https://docs.segments.ai/background/main-concepts).
 This file also contains definitions of the label classes:
 
-0. Ground (labelled implicitlty by the ROS2 tool, not present in the cuboid labels)
+0. Ground/Grass/Plants not distinguishable in the lidar map (labelled implicitlty by the ROS2 tool, not present in the cuboid labels)
 1. Tree trunk
 2. Tree canopy
 3. Rock
