@@ -38,7 +38,7 @@ A tool for point cloud accumulation is also provided. Based on the message count
 ### Data from the recording sessions
 
 * **Short grass: May 2024** (4068s)
-Area of approx. 200x200m was captured by the Husky mobile robot in a "search pattern" fashion, resulting in dense coverage by all the onboard sensors.
+Area of approx. 180x140m was captured by the Husky mobile robot in a "search pattern" fashion, resulting in dense coverage by all the onboard sensors.
 In the beginning of summer, the undergrowth is not yet fully developed, therefore the visibility conditions for the camera and lidar are good.
 Besides the raw data from the robot, a reference map is provided as well as raw GNSS data from a static and mobile receiver.
 
@@ -58,13 +58,16 @@ In these conditions, the comparison between camera, lidar and radar becomes inte
 
 * **ROS1 tools - helper launch files**
 The ROS1 variant of the bag files is accompanied by a set of launch files allowing reprocessing of the Ouster lidar raw packets, adding additional TFs, and publishing the reference point cloud map for Rviz visualisation.
-The tools are available in a separate repository: **TODO** 
+
+The tools are available in a separate repository: [Radar Forest Dataset ROS1 Launchers - Anonymous Version](https://anonymous.4open.science/r/radar_forest_dataset_ros1_launchers-C536/)
 
 * **ROS2 tools - point cloud labelling tools**
 The provided ROS2 tools allow online labeling of point clouds, either lidar or radar, based on the provided set of cuboids stored in a yaml file (included).
 For convenience, a tool for accumulating a series of pointclouds, republishing them and also saving as `.pcd` files is also provided.
 Similarly to ROS1, a launch file for publishing a reference point cloud map and Rviz config file are also available.
-The tools are available in a separate repository: **TODO** 
+
+The tools are available in a separate repository: [Point Cloud Labeling Tools - Anonymous Version](https://anonymous.4open.science/r/pointcloud_labeling_tools-5739/)
+
 ---
 
 ## Data Structure and File Organization
@@ -179,16 +182,39 @@ Note that the system clock of the robot was not precisely synchronized with the 
 
 The pose of the robot saved in the ROS bag files is based on SLAM result of using Norlab's [ICP Mapper](https://github.com/norlab-ulaval/norlab_icp_mapper_ros) as a front-end for the [HDL Graph Slam](https://github.com/koide3/hdl_graph_slam) graph optimization.
 The high-quality `/rtklib/post_fix_q1` fix messages were used as constrains, and the whole map frame is aligned with the Universal Transverse Mercator (UTM) frame. Unfortunatelly, the GNSS coverage under tree canopy is a hard problem, therefore the number of 
-precise GNSS measurements is limited. Each run has it's own map, and when inspected the alignment after registration of these to maps to each other, we estimate the position uncertainty to +-30cm (large-scale deformations, locally consitent).
+precise GNSS measurements is limited. Each run has its own map, and when inspected the alignment after registration of these to maps to each other, we estimate the position uncertainty to +-30cm (large-scale deformations, locally consitent).
 This accuracy is adequate to the intended purpose of the dataset, which is point cloud segmentation training/testing.
 
 To use different reference, the bag files need to be filtered, removing the `/icp_odom` topic and the `/map->/odom` TF messages. Similarly, to test different odometry solutions, remove `/odom->/base_link` TF messages as well.
+
+
+**3D cuboid labels**
+The 3D cuboid labes are stored in the `ros2_jazzy/cuboid_labels/short_and_tall_grass_labels.json` for both recording sessions. See the format documentation [here](https://docs.segments.ai/background/main-concepts).
+This file also contains definitions of the label classes:
+
+0. Ground/Grass/Plants not distinguishable in the lidar map (labelled implicitlty by the ROS2 tool, not present in the cuboid labels)
+1. Tree trunk
+2. Tree canopy
+3. Rock
+4. Bush or small tree
+5. Car
+6. Building or similar
+7. Lamp or sign
+8. Ignore
+
+The cuboids were manually created based on the reference lidar maps, and as those maps do not perfectly align, the two sets of labels are adjusted for those differences.
+Moreover, the ROS2 point cloud labelling tool allows setting priority of the label classes, such that, e.g., tree trunk has priority over tree canopy.
+In the current implementation, each point can belong to only one class, and this priority system resolves situations where one point lies inside multiple cuboids.
+
+Due to the lower spatial resolution of the 4D radar and the way it determines position of the reported targets, some valid radar points lie outside the cuboids drawn around the corresponding lidar-defined objects (e.g., tree trunks look thicker in the radar data than in the lidar data).
+The ROS2 labeling tool allows defining inflation of selected cuboid classes to compensate for this effect.
+Of course, it depends on the user's choice, how a radar point lying outside the sensed object, but clearly caused by that object, should be labeled.
 
 ---
 
 ## Downloads
 
-**Note to reviewers: This location is temporary for maintaing anonymity. It was kindly provided by fellow researchers from field robotics.**
+**Note to the reviewers: This location is temporary for maintaing anonymity. It was kindly provided by fellow researchers from field robotics.**
 
 The dataset can be downloaded from this [repository](http://subtdata.felk.cvut.cz/tmp_radar_forest_dataset_release/)
 Depending on your preferred ROS version, download only the ROS1 or ROS2 archive.
