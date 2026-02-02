@@ -154,7 +154,6 @@ The dataset sensor measurements from these sensors:
   * **Please note** that the Hugin A3-Sample radar used in our dataset is an early demo model not with the same performance as the forthcoming production-ready model.
   * Topic: `/hugin_raf_1/radar_data`
 * Ouster OS0-32 (3D lidar)
-  * This sensor is available for tuning and verification of your SLAM solution, but not available in the competition runs (i.e., the topic with point clouds will not be published in the Docker environment).
   * Topics in ROS1: `/ouster/lidar_packets`, `/ouster/imu_packets`, `/point_cloud_deskewed` - for convenience, already motion-corrected point cloud
   * Topics in ROS2: `/ouster/imu`, `/ouster/points`, `/ouster/range_image`, `/point_cloud_deskewed`
 * IDS Imaging uEye camera (2056x1542px)
