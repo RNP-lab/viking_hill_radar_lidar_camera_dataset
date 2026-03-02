@@ -213,7 +213,7 @@ Of course, it depends on the user's choice, how a radar point lying outside the 
 
 ## Downloads
 
-**Note to the reviewers: This location is temporary for maintaing anonymity. It was kindly provided by fellow researchers from field robotics.**
+**Note to the reviewers: This location is temporary for maintaing anonymity. It was kindly provided by fellow researchers from field robotics. The final destination of the dataset files is the EU's Zenodo archive for assuring the FAIR principles. Following the archive FAIR requirements, the bag files will be provided together with separate files extracted from them.**
 
 The dataset can be downloaded from this [repository](http://subtdata.felk.cvut.cz/tmp_radar_forest_dataset_release/)
 Depending on your preferred ROS version, download only the ROS1 or ROS2 archive.
