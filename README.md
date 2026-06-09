@@ -237,7 +237,7 @@ The dataset was compressed using **7z** tool. For convenience, consider using pr
 
 ### Video Teasers
 
-Removed for double-blind review
+[![Watch the video](media/video_thumb.jpg)](https://youtu.be/yt8qUFcwMpo?si=Gis8AI2KVEV-Y94P)
 
 ## Acknowledgement
 
