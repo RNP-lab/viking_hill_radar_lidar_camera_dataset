@@ -252,6 +252,9 @@ The reference map and localization was constructed using Norlab's [ICP Mapper](h
 * Pomerleau, F., Colas, F., Siegwart, R., & Magnenat, S. (2013). Comparing ICP Variants on Real-World Data Sets. Autonomous Robots, 34(3), 133–148. 
 * Kenji Koide, Jun Miura, and Emanuele Menegatti, (2019). A Portable 3D LIDAR-based System for Long-term and Wide-area People Behavior Measurement, Advanced Robotic Systems, [link](https://www.researchgate.net/publication/331283709_A_Portable_3D_LIDAR-based_System_for_Long-term_and_Wide-area_People_Behavior_Measurement)
 
+The work on this dataset was supported by the European Union's Horizon Europe Framework Programme under the RaCOON project (ID: 101106906).
+
+![Funded by EU](media/EN_FundedbytheEU_RGB_POS.png)
 
   
 
