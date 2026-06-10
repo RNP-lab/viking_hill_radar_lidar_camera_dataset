@@ -7,7 +7,7 @@
 * [Examples and Teasers](#examples-and-teasers)
 * [Acknowledgement](#acknowledgement)
 
-# Viking Hill Dataset: A Lidar-Radar-Camera Benchmark for Detection and Segmentation in Forest Scenes
+# Viking Hill Dataset: A Lidar-Radar-Camera Dataset for Detection and Segmentation in Forest Scenes
 
 ## Dataset description
 ![Husky robot during the experiment](media/husky_title_sm.jpg)
