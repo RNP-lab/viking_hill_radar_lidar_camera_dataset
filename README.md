@@ -66,7 +66,7 @@ The provided ROS2 tools allow online labeling of point clouds, either lidar or r
 For convenience, a tool for accumulating a series of pointclouds, republishing them and also saving as `.pcd` files is also provided.
 Similarly to ROS1, a launch file for publishing a reference point cloud map and Rviz config file are also available.
 
-The tools are available in a separate repository: [Point Cloud Labeling Tools - Anonymous Version](https://anonymous.4open.science/r/pointcloud_labeling_tools-5739/)
+The tools are available in a separate repository: [Point Cloud Labeling Tools](https://github.com/RNP-lab/pointcloud_labeling_tools)   
 
 ---
 
