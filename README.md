@@ -213,10 +213,10 @@ Of course, it depends on the user's choice, how a radar point lying outside the 
 
 ## Downloads
 
-**Note to the reviewers: This location is temporary for maintaing anonymity. It was kindly provided by fellow researchers from field robotics. The final destination of the dataset files is the EU's Zenodo archive for assuring the FAIR principles. Following the archive FAIR requirements, the bag files will be provided together with separate files extracted from them.**
-
 The dataset can be downloaded from this [repository](http://subtdata.felk.cvut.cz/tmp_radar_forest_dataset_release/)
 Depending on your preferred ROS version, download only the ROS1 or ROS2 archive.
+
+The ROS2 version is also available at Zenodo: [Viking Hill Dataset @ Zenodo](https://zenodo.org/records/20795213)
 
 The dataset was compressed using **7z** tool. For convenience, consider using provided ROS1 and ROS2 bash scripts, that download and decompress the archive at the location of running them. Each version of the dataset is approx. 200GB large, and for decompression, twice that space is required on your disk.
 
